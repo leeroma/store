@@ -3,24 +3,44 @@
 
 {% block content %}
     <br>
-    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-evenly">
-        {% for product in products %}
-            <div class="card mb-6" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="{{ product.name }} image">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ product.name }}</h5>
-                            <p class="card-title">{{ product.get_category }}</p>
-                            <h6 class="card-text">Price: {{ product.price }}</h6>
-                            <a href="{% url 'product' product.pk %}">see more >>></a>
+    <div class="row">
+        <div class="col-md-11">
+            <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-evenly">
+                {% for product in products %}
+                    <div class="card mb-6" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ product.image.url }}" class="img-fluid rounded-start"
+                                     alt="{{ product.name }} image">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ product.name }}</h5>
+                                    <p class="card-title">{{ product.get_category }}</p>
+                                    <h6 class="card-text">Price: {{ product.price }}</h6>
+                                    <a href="{% url 'product' product.pk %}"
+                                       class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">see
+                                        more >>></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+        </div>
+        <div class="col-md-1">
+            <form action="{% url 'products_filtered' %}" method="get">
+                {% for category in categories %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pk" value="{{ category.pk }}"
+                               id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            {{ category.name }}
+                        </label>
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-success">Filter</button>
+            </form>
+        </div>
     </div>
-    <br>
 {% endblock %}

@@ -17,7 +17,7 @@ def products_view(request):
         return redirect('product_add')
 
     products = products.order_by('name')
-    return render(request, 'index.html', context={'products': products})
+    return render(request, 'index.html', context={'products': products, 'categories': categories})
 
 
 def product_view(request, pk: int):
@@ -86,3 +86,13 @@ def product_delete_view(request, pk):
     product = get_object_or_404(Product, pk=pk)
     product.delete()
     return HttpResponseRedirect(reverse('products'))
+
+
+def products_filtered_view(request):
+    pk = request.GET.get('pk')
+    if not pk:
+        return HttpResponseRedirect(reverse('products'))
+    categories = Category.objects.all()
+    category = categories.get(pk=pk)
+    products = Product.objects.filter(category=category)
+    return render(request, 'index.html', context={'products': products, 'categories': categories})
