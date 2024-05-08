@@ -24,6 +24,11 @@ def product_view(request, pk: int):
     return render(request, 'product.html', context={'product': product})
 
 
+def categories_view(request):
+    categories = Category.objects.all()
+    return render(request, 'categories.html', context={'categories': categories})
+
+
 def category_add_view(request):
     form = CategoryForm()
     if request.method == 'POST':
