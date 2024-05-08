@@ -2,13 +2,20 @@
 {% block title %}Product #{{ product.pk }} Page{% endblock %}
 
 {% block content %}
-<div class="card mb-3">
-  <img src="{{ product.img.url }}" class="card-img-top" alt="{{ product.name }} image">
-  <div class="card-body">
-    <h5 class="card-title">{{ product.name }}</h5>
-    <p class="card-text">{{ product.description }}</p>
-    <p class="card-text">{{ product.get_category }}</p>
-    <p class="card-text">{{ product.price }}</p>
+<div class="card mb-12">
+  <div class="row g-0">
+    <div class="col-md-6">
+      <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }} image">
+    </div>
+    <div class="col-md-6">
+      <div class="card-body">
+        <h4 class="card-title">{{ product.name }}</h4>
+        <p class="card-text">{{ product.get_category }}</p>
+        <p class="card-text">{{ product.description }}</p>
+        <h5 class="card-text">Price: {{ product.price }}</h5>
+        <p class="card-text"><small class="text-body-secondary">Added: {{ product.created_at }}</small></p>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}
