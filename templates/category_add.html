@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block title %}Add Category{% endblock %}
+
+{% block content %}
+    <br>
+    <form action="{% url 'category_add' %}" method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-outline-primary">Submit</button>
+        {% endbuttons %}
+    </form>
+{% endblock %}

@@ -5,6 +5,9 @@ class Category(models.Model):
     name = models.CharField('Название', max_length=100, blank=False, null=False)
     description = models.TextField('Описание', max_length=3000, blank=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Product(models.Model):
     name = models.CharField('Название', max_length=100, blank=False, null=False)
@@ -13,3 +16,7 @@ class Product(models.Model):
     created_at = models.DateTimeField('Дата создания', auto_now_add=True)
     price = models.DecimalField('Цена', max_digits=10, decimal_places=2)
     image = models.ImageField('Изображение', upload_to='products')
+
+    @property
+    def get_category(self):
+        return self.category.all()[0]
