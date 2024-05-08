@@ -63,7 +63,25 @@ def category_edit_view(request, pk):
     return render(request, 'category_edit.html', context={'category': category, 'form': form})
 
 
+def product_edit_view(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    form = ProductForm(instance=product)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('product', args=[product.pk]))
+
+    return render(request, 'product_edit.html', context={'product': product, 'form': form})
+
+
 def category_delete_view(request, pk):
     category = get_object_or_404(Category, pk=pk)
     category.delete()
     return HttpResponseRedirect(reverse('categories'))
+
+
+def product_delete_view(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    product.delete()
+    return HttpResponseRedirect(reverse('products'))
