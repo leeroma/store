@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block title %}Edit Category{% endblock %}
+
+{% block content %}
+    <br>
+    <h3>Edit category #{{ category.pk }}</h3>
+    <br>
+    <form action="{% url 'category_edit' category.pk %}" method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-outline-primary">Submit</button>
+        {% endbuttons %}
+    </form>
+{% endblock %}

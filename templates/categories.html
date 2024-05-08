@@ -18,8 +18,8 @@
                 <th scope="row">{{ category.pk }}</th>
                 <td>{{ category.name }}</td>
                 <td>{{ category.description }}</td>
-                <td><a href="" class="btn btn-primary">Edit</a></td>
-                <td><a href="" class="btn btn-danger">Delete</a></td>
+                <td><a href="{% url 'category_edit' category.pk %}" class="btn btn-primary">Edit</a></td>
+                <td><a href="{% url 'category_delete' category.pk %}" class="btn btn-danger">Delete</a></td>
             </tr>
         {% endfor %}
         </tbody>
