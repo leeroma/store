@@ -20,16 +20,16 @@
                 <td>{{ category.description }}</td>
                 <td><a href="{% url 'category_edit' category.pk %}" class="btn btn-primary">Edit</a></td>
                 <td>
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Delete
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ category.pk }}">Delete
                     </button>
                 </td>
             </tr>
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="deleteModal{{ category.pk }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="deleteModalLabel{{ category.pk }}" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Category</h1>
+                            <h1 class="modal-title fs-5" id="deleteModalLabel{{ category.pk }}">Delete Category</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">

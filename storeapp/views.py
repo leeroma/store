@@ -36,7 +36,7 @@ def category_add_view(request):
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('product'))
+            return HttpResponseRedirect(reverse('categories'))
 
     return render(request, 'category_add.html', context={'form': form})
 
