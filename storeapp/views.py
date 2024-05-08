@@ -16,6 +16,7 @@ def products_view(request):
     if not products:
         return redirect('product_add')
 
+    products = products.order_by('name')
     return render(request, 'index.html', context={'products': products})
 
 

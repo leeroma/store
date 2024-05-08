@@ -16,7 +16,27 @@
                     <p class="card-title">{{ product.quantity }} left</p>
                     <p class="card-text"><small class="text-body-secondary">Added: {{ product.created_at }}</small></p>
                     <a href="{% url 'product_edit' product.pk %}" class="btn btn-primary">Edit</a>
-                    <a href="{% url 'product_delete' product.pk %}" class="btn btn-danger">Delete</a>
+                    <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-danger">Delete
+                    </button>
+                </div>
+            </div>
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Product</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete {{ product.name }}?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a href="{% url 'product_delete' product.pk %}" type="button"
+                               class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
