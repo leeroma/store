@@ -403,20 +403,6 @@
 },
 {
     "model": "storeapp.product",
-    "pk": 1,
-    "fields": {
-        "name": "Nike Air Max 90",
-        "description": "",
-        "created_at": "2024-05-08T10:05:41.759Z",
-        "price": "69900.00",
-        "image": "products/images.jpeg",
-        "category": [
-            4
-        ]
-    }
-},
-{
-    "model": "storeapp.product",
     "pk": 2,
     "fields": {
         "name": "Nike Sportswear Club Fleece Men's Full-Zip Hoodie",
@@ -426,6 +412,48 @@
         "image": "products/sportswear-club-fleece-mens-full-zip-hoodie-nR8tst.jpeg",
         "category": [
             5
+        ]
+    }
+},
+{
+    "model": "storeapp.product",
+    "pk": 3,
+    "fields": {
+        "name": "Nike Air Max 90",
+        "description": "Кроссовки бренда Nike с открытым балоном Air, белого цвета",
+        "created_at": "2024-05-08T11:11:36.092Z",
+        "price": "69900.00",
+        "image": "products/images.jpeg",
+        "category": [
+            4
+        ]
+    }
+},
+{
+    "model": "storeapp.product",
+    "pk": 4,
+    "fields": {
+        "name": "Nike Air Force 1 White",
+        "description": "",
+        "created_at": "2024-05-08T11:41:31.729Z",
+        "price": "71900.00",
+        "image": "products/nike-air-force-1-low-triple-white.jpg",
+        "category": [
+            4
+        ]
+    }
+},
+{
+    "model": "storeapp.product",
+    "pk": 5,
+    "fields": {
+        "name": "Nike Heritage Waistpack (3L)",
+        "description": "Сумка на пояс Nike черная",
+        "created_at": "2024-05-08T11:43:02.796Z",
+        "price": "25000.00",
+        "image": "products/heritage-waistpack-3l-fvQD5x.png",
+        "category": [
+            6
         ]
     }
 }

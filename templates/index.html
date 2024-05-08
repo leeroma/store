@@ -3,7 +3,7 @@
 
 {% block content %}
     <br>
-    <div class="row d-flex justify-content-center">
+    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-evenly">
         {% for product in products %}
             <div class="card mb-6" style="max-width: 540px;">
                 <div class="row g-0">
@@ -22,5 +22,5 @@
             </div>
         {% endfor %}
     </div>
-    
+    <br>
 {% endblock %}

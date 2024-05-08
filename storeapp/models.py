@@ -5,6 +5,10 @@ class Category(models.Model):
     name = models.CharField('Название', max_length=100, blank=False, null=False)
     description = models.TextField('Описание', max_length=3000, blank=True)
 
+    class Meta:
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
+
     def __str__(self):
         return self.name
 

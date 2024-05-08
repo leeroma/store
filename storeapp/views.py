@@ -30,7 +30,7 @@ def category_add_view(request):
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('products'))
+            return HttpResponseRedirect(reverse('product'))
 
     return render(request, 'category_add.html', context={'form': form})
 
@@ -41,6 +41,6 @@ def product_add_view(request):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             product = form.save()
-            return HttpResponseRedirect(reverse('products'))
+            return HttpResponseRedirect(reverse('product', args=[product.pk]))
 
     return render(request, 'product_add.html', context={'form': form})
