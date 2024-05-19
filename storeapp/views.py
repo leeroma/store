@@ -1,28 +1,48 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from storeapp.forms import ProductForm, CategoryForm
 from storeapp.models import Product, Category
 
 
-def products_view(request):
-    products = Product.objects.all()
-    categories = Category.objects.all()
+class ProductListView(ListView):
+    model = Product
+    context_object_name = 'products'
+    template_name = 'index.html'
+    paginate_by = 4
+    paginate_orphans = 2
 
-    if not categories:
-        return redirect('category_add')
+    filter_value = None
 
-    if not products:
-        return redirect('product_add')
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['categories'] = Category.objects.all()
+        context['name'] = self.filter_value
+        return context
 
-    products = products.order_by('name')
-    return render(request, 'index.html', context={'products': products, 'categories': categories})
+    def get(self, request, *args, **kwargs):
+        self.filter_value = self.request.GET.get('name')
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.filter_value:
+            queryset = queryset.filter(category__name=self.filter_value)
+
+        return queryset
 
 
-def product_view(request, pk: int):
-    product = get_object_or_404(Product, pk=pk)
-    return render(request, 'product.html', context={'product': product})
+class ProductDetailView(DetailView):
+    model = Product
+    context_object_name = 'product'
+    template_name = 'product.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['product'] = get_object_or_404(Product, pk=self.kwargs['pk'])
+        return context
 
 
 def categories_view(request):
@@ -41,15 +61,18 @@ def category_add_view(request):
     return render(request, 'category_add.html', context={'form': form})
 
 
-def product_add_view(request):
-    form = ProductForm()
-    if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)
+class CreateProductView(CreateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'product_add.html'
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
             product = form.save()
             return HttpResponseRedirect(reverse('product', args=[product.pk]))
 
-    return render(request, 'product_add.html', context={'form': form})
+        return render(request, self.template_name, {'form': form})
 
 
 def category_edit_view(request, pk):
@@ -64,16 +87,14 @@ def category_edit_view(request, pk):
     return render(request, 'category_edit.html', context={'category': category, 'form': form})
 
 
-def product_edit_view(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    form = ProductForm(instance=product)
-    if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES, instance=product)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('product', args=[product.pk]))
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'product_edit.html'
+    context_object_name = 'product'
 
-    return render(request, 'product_edit.html', context={'product': product, 'form': form})
+    def get_success_url(self):
+        return reverse('product', args=[self.get_object().pk])
 
 
 def category_delete_view(request, pk):
@@ -82,17 +103,8 @@ def category_delete_view(request, pk):
     return HttpResponseRedirect(reverse('categories'))
 
 
-def product_delete_view(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    product.delete()
-    return HttpResponseRedirect(reverse('products'))
+class ProductDeleteView(DeleteView):
+    model = Product
 
-
-def products_filtered_view(request):
-    pk = request.GET.get('pk')
-    if not pk:
-        return HttpResponseRedirect(reverse('products'))
-    categories = Category.objects.all()
-    category = categories.get(pk=pk)
-    products = Product.objects.filter(category=category)
-    return render(request, 'index.html', context={'products': products, 'categories': categories})
+    def get_success_url(self):
+        return reverse('products')

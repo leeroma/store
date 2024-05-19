@@ -33,8 +33,10 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <a href="{% url 'product_delete' product.pk %}" type="button"
-                               class="btn btn-danger">Delete</a>
+                            <form action="{% url 'product_delete' product.pk %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>
