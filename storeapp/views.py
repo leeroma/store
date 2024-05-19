@@ -45,20 +45,27 @@ class ProductDetailView(DetailView):
         return context
 
 
-def categories_view(request):
-    categories = Category.objects.all()
-    return render(request, 'categories.html', context={'categories': categories})
+class CategoriesListView(ListView):
+    model = Category
+    context_object_name = 'categories'
+    template_name = 'categories.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        return context
 
 
-def category_add_view(request):
-    form = CategoryForm()
-    if request.method == 'POST':
-        form = CategoryForm(request.POST)
+class CreateCategoryView(CreateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'category_add.html'
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('categories'))
 
-    return render(request, 'category_add.html', context={'form': form})
+        return HttpResponseRedirect(reverse('categories'))
 
 
 class CreateProductView(CreateView):
@@ -75,16 +82,14 @@ class CreateProductView(CreateView):
         return render(request, self.template_name, {'form': form})
 
 
-def category_edit_view(request, pk):
-    category = get_object_or_404(Category, pk=pk)
-    form = CategoryForm(instance=category)
-    if request.method == 'POST':
-        form = CategoryForm(request.POST, instance=category)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('categories'))
+class CategoryUpdateView(UpdateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'category_edit.html'
+    context_object_name = 'category'
 
-    return render(request, 'category_edit.html', context={'category': category, 'form': form})
+    def get_success_url(self):
+        return reverse('categories')
 
 
 class ProductUpdateView(UpdateView):
@@ -97,10 +102,11 @@ class ProductUpdateView(UpdateView):
         return reverse('product', args=[self.get_object().pk])
 
 
-def category_delete_view(request, pk):
-    category = get_object_or_404(Category, pk=pk)
-    category.delete()
-    return HttpResponseRedirect(reverse('categories'))
+class CategoryDeleteView(DeleteView):
+    model = Category
+
+    def get_success_url(self):
+        return reverse('categories')
 
 
 class ProductDeleteView(DeleteView):
