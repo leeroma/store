@@ -32,6 +32,9 @@ class Product(models.Model):
 
         return 'Товар без категории'
 
+    def __str__(self):
+        return self.name
+
 
 class ProductInCart(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Корзина')
@@ -40,3 +43,15 @@ class ProductInCart(models.Model):
 
     class Meta:
         verbose_name_plural = 'Products in cart'
+
+    def __str__(self):
+        return self.product.name
+
+
+class Order(models.Model):
+    product = models.ManyToManyField(Product, verbose_name='Заказ', related_name='order')
+    client_name = models.CharField('Имя пользователя', max_length=200, blank=False, null=False)
+    phone_number = models.CharField('Телефон', max_length=13, blank=False, null=False)
+    address = models.CharField('Адрес', max_length=200, blank=False, null=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)

@@ -34,4 +34,8 @@
 {% endfor %}
 </tbody>
 </table>
+    <br>
+    {% if cart %}
+    <a href="{% url 'create_order' %}" class="btn btn-primary">Order</a>
+    {% endif %}
 {% endblock %}

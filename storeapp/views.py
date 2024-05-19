@@ -4,8 +4,8 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
-from storeapp.forms import ProductForm, CategoryForm
-from storeapp.models import Product, Category, ProductInCart
+from storeapp.forms import ProductForm, CategoryForm, OrderForm
+from storeapp.models import Product, Category, ProductInCart, Order
 
 
 class ProductListView(ListView):
@@ -47,7 +47,7 @@ class ProductListView(ListView):
 class ProductDetailView(DetailView):
     model = Product
     context_object_name = 'product'
-    template_name = 'product.html'
+    template_name = 'product/product.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -58,7 +58,7 @@ class ProductDetailView(DetailView):
 class CategoriesListView(ListView):
     model = Category
     context_object_name = 'categories'
-    template_name = 'categories.html'
+    template_name = 'category/categories.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -68,7 +68,7 @@ class CategoriesListView(ListView):
 class CreateCategoryView(CreateView):
     model = Category
     form_class = CategoryForm
-    template_name = 'category_add.html'
+    template_name = 'category/category_add.html'
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
@@ -81,7 +81,7 @@ class CreateCategoryView(CreateView):
 class CreateProductView(CreateView):
     model = Product
     form_class = ProductForm
-    template_name = 'product_add.html'
+    template_name = 'product/product_add.html'
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
@@ -95,7 +95,7 @@ class CreateProductView(CreateView):
 class CategoryUpdateView(UpdateView):
     model = Category
     form_class = CategoryForm
-    template_name = 'category_edit.html'
+    template_name = 'category/category_edit.html'
     context_object_name = 'category'
 
     def get_success_url(self):
@@ -105,7 +105,7 @@ class CategoryUpdateView(UpdateView):
 class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
-    template_name = 'product_edit.html'
+    template_name = 'product/product_edit.html'
     context_object_name = 'product'
 
     def get_success_url(self):
@@ -128,7 +128,7 @@ class ProductDeleteView(DeleteView):
 
 class ProductInCartView(TemplateView):
     model = ProductInCart
-    template_name = 'cart.html'
+    template_name = 'cart/cart.html'
     context_object_name = 'cart'
 
     def get_context_data(self, **kwargs):
@@ -190,3 +190,21 @@ class DeleteFromCartView(DeleteView):
             product_in_cart.delete()
 
         return HttpResponseRedirect(success_url)
+
+
+class CreateOrderView(CreateView):
+    model = Order
+    template_name = 'order/create_order.html'
+    form_class = OrderForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            products = form.cleaned_data.pop('product')
+            order = form.save()
+            products = [product.product.id for product in products]
+            order.product.add(*products)
+            ProductInCart.objects.all().delete()
+            return HttpResponseRedirect(reverse('cart'))
+
+        return render(request, self.template_name, {'form': form})
