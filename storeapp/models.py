@@ -31,3 +31,12 @@ class Product(models.Model):
             return ','.join([category.name for category in categories])
 
         return 'Товар без категории'
+
+
+class ProductInCart(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Корзина')
+    quantity = models.DecimalField('Количество', max_digits=5, decimal_places=0, default=1,
+                                   validators=[MinValueValidator(1)])
+
+    class Meta:
+        verbose_name_plural = 'Products in cart'

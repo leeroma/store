@@ -288,11 +288,47 @@
     }
 },
 {
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+        "name": "Can add product in cart",
+        "content_type": 9,
+        "codename": "add_productincart"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+        "name": "Can change product in cart",
+        "content_type": 9,
+        "codename": "change_productincart"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+        "name": "Can delete product in cart",
+        "content_type": 9,
+        "codename": "delete_productincart"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+        "name": "Can view product in cart",
+        "content_type": 9,
+        "codename": "view_productincart"
+    }
+},
+{
     "model": "auth.user",
     "pk": 1,
     "fields": {
-        "password": "pbkdf2_sha256$720000$e81qNMg4mDyECUpvuJBkkn$9xresFBwcGezuDINDrSY9Wl3BA0kmKCXVqhBLcHEMjw=",
-        "last_login": "2024-05-08T08:18:30.525Z",
+        "password": "pbkdf2_sha256$600000$2AvHBrZe7mkgrKJpcEZ9lI$MDlRPjP4Jgo0YmWbIsl1Zzg3BNGIgXS1iHWQ7yLlQqo=",
+        "last_login": "2024-05-19T10:52:08.836Z",
         "is_superuser": true,
         "username": "root",
         "first_name": "",
@@ -370,6 +406,22 @@
     }
 },
 {
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+        "app_label": "storeapp",
+        "model": "productincart"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "q5ep0cyqbfixbcan4jckdgu9mxo50u3r",
+    "fields": {
+        "session_data": ".eJxVjDEOwjAMRe-SGUW1k6oJIztniOzYIQXUSk07Ie4OlTrA-t97_2USbWtNW9MljWLOBszpd2PKD512IHeabrPN87QuI9tdsQdt9jqLPi-H-3dQqdVvXQpE3w1ugOICSwBC1C70uTjPMSIDQZZCnhWRQHvqPEpg8r1jh2LeH-EbOBE:1s8e9A:5b3LC-eH2GjgWCYMwwPGz-uXJj0DCHgvloc9ssTDPNE",
+        "expire_date": "2024-06-02T10:52:08.839Z"
+    }
+},
+{
     "model": "sessions.session",
     "pk": "zpqd30gqcyoe0u51ryajgxa7kahg2zws",
     "fields": {
@@ -399,21 +451,6 @@
     "fields": {
         "name": "Аксессуары",
         "description": "Сумки, рюкзаки и др. виды аксессуаров как для повседневной жизни, так и для занятий спортом"
-    }
-},
-{
-    "model": "storeapp.product",
-    "pk": 2,
-    "fields": {
-        "name": "Nike Sportswear Club Fleece Men's Full-Zip Hoodie",
-        "description": "Толстовка бренда Nike на замке",
-        "created_at": "2024-05-08T10:34:42.108Z",
-        "quantity": "4",
-        "price": "35900.00",
-        "image": "products/sportswear-club-fleece-mens-full-zip-hoodie-nR8tst.jpeg",
-        "category": [
-            5
-        ]
     }
 },
 {
@@ -451,7 +488,7 @@
     "pk": 5,
     "fields": {
         "name": "Nike Heritage Waistpack (3L)",
-        "description": "Сумка на пояс Nike черная",
+        "description": "Возьмите с собой забавный и функциональный рюкзак, в котором найдется место для самого необходимого. Ваш телефон, ключи и бумажник надежно поместятся в основное отделение на двойной молнии — вы можете забыть о времени, потраченном на поиски самого необходимого. А возможность переноски без помощи рук означает, что у вас есть свобода передвижения, не отвлекаясь ни на что.",
         "created_at": "2024-05-08T11:43:02.796Z",
         "quantity": "6",
         "price": "25000.00",
@@ -488,6 +525,51 @@
         "image": "products/jordan-sport-mens-dri-fit-woven-pants-BBFGzq.png",
         "category": [
             5
+        ]
+    }
+},
+{
+    "model": "storeapp.product",
+    "pk": 10,
+    "fields": {
+        "name": "Nike Air Max Plus Drift",
+        "description": "Почувствуйте себя лучше в Air Max Plus Drift, \"настроенном\" воздуховоде, который обеспечивает превосходную устойчивость и амортизацию. Воздушная сетка, градиентная расцветка и оригинальные волнистые линии дизайна подчеркивают ваш дерзкий стиль.",
+        "created_at": "2024-05-19T08:49:13.611Z",
+        "quantity": "5",
+        "price": "81800.00",
+        "image": "products/air-max-plus-drift-mens-shoes-FKwJ7w.png",
+        "category": [
+            4
+        ]
+    }
+},
+{
+    "model": "storeapp.product",
+    "pk": 11,
+    "fields": {
+        "name": "Nike Sportswear Chill Knit",
+        "description": "Воплощая в себе стиль, комфорт и универсальность, познакомьтесь с нашей новой роскошной одеждой для отдыха. Эта майка с укороченным кроем, доходящим до талии, изготовлена из мягкого трикотажа в рубчик, эластичного с легкой драпировкой, что делает ее идеальной для повседневной носки. Так что носите его круглосуточно и на протяжении всего календаря.",
+        "created_at": "2024-05-19T08:51:58.316Z",
+        "quantity": "1",
+        "price": "19900.00",
+        "image": "products/sportswear-chill-knit-womens-tight-cropped-mini-rib-tank-top-qFZ4Mq.png",
+        "category": [
+            5
+        ]
+    }
+},
+{
+    "model": "storeapp.product",
+    "pk": 12,
+    "fields": {
+        "name": "New York Yankees Primetime Swoosh",
+        "description": "Эта бейсболка Prime Time Swoosh с легким дизайном и технологией, отводящей влагу от пота, помогает вашей голове оставаться прохладной и удобно прикрытой. Вышитый логотип New York Yankees на тулье придает ей официальный вид команды.",
+        "created_at": "2024-05-19T08:53:37.718Z",
+        "quantity": "5",
+        "price": "15900.00",
+        "image": "products/new-york-yankees-primetime-swoosh-mens-dri-fit-hat-R1qQgJ.jpeg",
+        "category": [
+            6
         ]
     }
 }

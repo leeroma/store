@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from storeapp.models import Product, Category
+from storeapp.models import Product, Category, ProductInCart
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -17,5 +17,12 @@ class CategoryAdmin(admin.ModelAdmin):
     exclude = []
 
 
+class ProductInCartAdmin(admin.ModelAdmin):
+    list_display = ('product', 'quantity',)
+    search_fields = ('product', 'quantity',)
+    exclude = []
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(ProductInCart, ProductInCartAdmin)
