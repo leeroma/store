@@ -12,6 +12,7 @@ class ProductListView(ListView):
     model = Product
     context_object_name = 'products'
     template_name = 'index.html'
+    ordering = ('name',)
     paginate_by = 4
     paginate_orphans = 2
 
@@ -30,7 +31,7 @@ class ProductListView(ListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().filter(quantity__gt=0)
         if self.filter_value:
             queryset = queryset.filter(category__name=self.filter_value)
 
