@@ -145,7 +145,7 @@ class AddToCartView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         self.product = get_object_or_404(Product, pk=self.kwargs['pk'])
-
+        self.quantity = int(request.GET['qty'])
         self.add_to_cart()
 
         return HttpResponseRedirect(reverse('cart'))
@@ -153,17 +153,34 @@ class AddToCartView(TemplateView):
     def add_to_cart(self):
         if ProductInCart.objects.filter(product_id=self.product.pk).exists():
             cart_product = ProductInCart.objects.get(product_id=self.product.pk)
-            cart_product.quantity += 1
-            self.product.quantity -= 1
+            cart_product.quantity += self.quantity
+            self.product.quantity -= self.quantity
             cart_product.save()
             self.product.save()
 
         elif self.product.quantity > 0:
-            self.quantity = 1
-            self.product.quantity -= 1
+            self.product.quantity -= self.quantity
             self.product.save()
             cart_product = ProductInCart.objects.create(product=self.product, quantity=self.quantity)
             cart_product.save()
 
         else:
             return HttpResponseRedirect(reverse('products'))
+
+
+class DeleteFromCartView(DeleteView):
+    model = ProductInCart
+
+    def get_success_url(self):
+        return reverse('cart')
+
+    def post(self, request, *args, **kwargs):
+        product_in_cart = get_object_or_404(ProductInCart, pk=self.kwargs['pk'])
+        product = get_object_or_404(Product, pk=product_in_cart.product_id)
+        success_url = self.get_success_url()
+        product.quantity += product_in_cart.quantity
+        product.save()
+        product_in_cart.delete()
+        return HttpResponseRedirect(success_url)
+
+

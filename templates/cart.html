@@ -11,6 +11,7 @@
         <tr>
             <th scope="col">Product name</th>
             <th scope="col">qty</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -19,6 +20,12 @@
     <tr>
         <th scope="row">{{ product.product.name }}</th>
         <td>{{ product.quantity }}</td>
+        <td>
+            <form action="{% url 'delete_from_cart' product.pk %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-danger" type="submit">Remove</button>
+            </form>
+        </td>
     </tr>
 {% endfor %}
 </tbody>

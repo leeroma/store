@@ -5,7 +5,8 @@
     <div class="card mb-12">
         <div class="row g-0">
             <div class="col-md-6">
-                <img style="max-width: 500px; max-height: 600px" src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }} image">
+                <img style="max-width: 500px; max-height: 600px" src="{{ product.image.url }}" class="card-img-top"
+                     alt="{{ product.name }} image">
             </div>
             <div class="col-md-6">
                 <div class="card-body">
@@ -15,12 +16,19 @@
                     <h5 class="card-text">Price: {{ product.price }}</h5>
                     <p class="card-title">{{ product.quantity }} left</p>
                     <p class="card-text"><small class="text-body-secondary">Added: {{ product.created_at }}</small></p>
-                    <a href="{% url 'product_edit' product.pk %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'product_edit' product.pk %}" class="btn btn-secondary">Edit</a>
                     <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-danger">Delete
                     </button>
                     <br>
                     <br>
-                    <div><a href="{% url 'add_to_cart' product.pk %}" class="btn btn-primary">Add to cart</a></div>
+                    <div>
+                        <form method="get" action="{% url 'add_to_cart' product.pk %}">
+                            <label for="qtyInput">
+                                <input class="form-control" name="qty" id="qtyInput" type="number" min="1" max="{{ product.quantity }}">
+                            </label>
+                            <button type="submit" class="btn btn-primary">Add to cart</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
