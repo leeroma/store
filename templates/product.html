@@ -24,7 +24,7 @@
                     <div>
                         <form method="get" action="{% url 'add_to_cart' product.pk %}">
                             <label for="qtyInput">
-                                <input class="form-control" name="qty" id="qtyInput" type="number" min="1" max="{{ product.quantity }}">
+                                <input class="form-control" value="1" name="qty" id="qtyInput" type="number" min="1" max="{{ product.quantity }}">
                             </label>
                             <button type="submit" class="btn btn-primary">Add to cart</button>
                         </form>

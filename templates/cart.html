@@ -23,6 +23,10 @@
         <td>
             <form action="{% url 'delete_from_cart' product.pk %}" method="post">
                 {% csrf_token %}
+                <label for="qtyInput">
+                    <input class="form-control" value="1" name="qty" id="qtyInput" type="number" min="1"
+                           max="{{ product.quantity }}">
+                </label>
                 <button class="btn btn-danger" type="submit">Remove</button>
             </form>
         </td>
