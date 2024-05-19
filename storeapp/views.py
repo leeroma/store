@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -15,6 +16,7 @@ class ProductListView(ListView):
     paginate_orphans = 2
 
     filter_value = None
+    search_value = None
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -24,12 +26,19 @@ class ProductListView(ListView):
 
     def get(self, request, *args, **kwargs):
         self.filter_value = self.request.GET.get('name')
+        self.search_value = self.request.GET.get('search')
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         queryset = super().get_queryset()
         if self.filter_value:
             queryset = queryset.filter(category__name=self.filter_value)
+
+        if self.search_value:
+            queryset = queryset.filter(
+                Q(name__icontains=self.search_value) |
+                Q(price__icontains=self.search_value)
+            )
 
         return queryset
 
