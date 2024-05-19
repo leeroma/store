@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from storeapp.models import Product, Category, ProductInCart
+from storeapp.models import Product, Category, ProductInCart, Order
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -23,6 +23,14 @@ class ProductInCartAdmin(admin.ModelAdmin):
     exclude = []
 
 
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'client_name', 'phone_number', 'created_at', )
+    search_fields = ('id', 'client_name', 'phone_number',)
+    exclude = []
+    readonly_fields = ('created_at',)
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(ProductInCart, ProductInCartAdmin)
+admin.site.register(Order, OrderAdmin)

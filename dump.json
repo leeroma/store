@@ -324,6 +324,42 @@
     }
 },
 {
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add order",
+        "content_type": 10,
+        "codename": "add_order"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change order",
+        "content_type": 10,
+        "codename": "change_order"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete order",
+        "content_type": 10,
+        "codename": "delete_order"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+        "name": "Can view order",
+        "content_type": 10,
+        "codename": "view_order"
+    }
+},
+{
     "model": "auth.user",
     "pk": 1,
     "fields": {
@@ -411,6 +447,14 @@
     "fields": {
         "app_label": "storeapp",
         "model": "productincart"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": {
+        "app_label": "storeapp",
+        "model": "order"
     }
 },
 {
@@ -520,7 +564,7 @@
         "name": "Jordan Sport Men's Dri-FIT Woven Pants",
         "description": "Согревайтесь, расслабляйтесь — делайте это с легкостью. Эти брюки из эластичной ткани с трикотажными вставками на икрах дают вам немного больше пространства для движений (и облегчают их снятие в конце дня). А благодаря вышивке в стиле крыльев ваш образ будет оставаться актуальным.",
         "created_at": "2024-05-08T13:21:28.014Z",
-        "quantity": "2",
+        "quantity": "1",
         "price": "26500.00",
         "image": "products/jordan-sport-mens-dri-fit-woven-pants-BBFGzq.png",
         "category": [
@@ -565,11 +609,97 @@
         "name": "New York Yankees Primetime Swoosh",
         "description": "Эта бейсболка Prime Time Swoosh с легким дизайном и технологией, отводящей влагу от пота, помогает вашей голове оставаться прохладной и удобно прикрытой. Вышитый логотип New York Yankees на тулье придает ей официальный вид команды.",
         "created_at": "2024-05-19T08:53:37.718Z",
-        "quantity": "5",
+        "quantity": "3",
         "price": "15900.00",
         "image": "products/new-york-yankees-primetime-swoosh-mens-dri-fit-hat-R1qQgJ.jpeg",
         "category": [
             6
+        ]
+    }
+},
+{
+    "model": "storeapp.order",
+    "pk": 1,
+    "fields": {
+        "client_name": "Роман",
+        "phone_number": "+77086726648",
+        "address": "USA, California st., Los Santos, Groove Street",
+        "created_at": "2024-05-19T15:51:09.259Z",
+        "product": []
+    }
+},
+{
+    "model": "storeapp.order",
+    "pk": 2,
+    "fields": {
+        "client_name": "Роман",
+        "phone_number": "+77086726648",
+        "address": "USA, California st., Los Santos, Groove Street",
+        "created_at": "2024-05-19T15:57:36.605Z",
+        "product": []
+    }
+},
+{
+    "model": "storeapp.order",
+    "pk": 3,
+    "fields": {
+        "client_name": "Роман",
+        "phone_number": "+77086726648",
+        "address": "USA, California st., Los Santos, Groove Street",
+        "created_at": "2024-05-19T16:06:43.958Z",
+        "product": []
+    }
+},
+{
+    "model": "storeapp.order",
+    "pk": 4,
+    "fields": {
+        "client_name": "Роман",
+        "phone_number": "+77086726648",
+        "address": "USA, California st., Los Santos, Groove Street",
+        "created_at": "2024-05-19T16:20:37.116Z",
+        "product": []
+    }
+},
+{
+    "model": "storeapp.order",
+    "pk": 5,
+    "fields": {
+        "client_name": "Роман",
+        "phone_number": "+77086726648",
+        "address": "USA, California st., Los Santos, Groove Street",
+        "created_at": "2024-05-19T16:21:23.571Z",
+        "product": [
+            7,
+            12
+        ]
+    }
+},
+{
+    "model": "storeapp.order",
+    "pk": 6,
+    "fields": {
+        "client_name": "Роман",
+        "phone_number": "+77086726648",
+        "address": "USA, California st., Los Santos, Groove Street",
+        "created_at": "2024-05-19T16:21:49.909Z",
+        "product": [
+            7,
+            12
+        ]
+    }
+},
+{
+    "model": "storeapp.order",
+    "pk": 7,
+    "fields": {
+        "client_name": "Роман",
+        "phone_number": "+77086726648",
+        "address": "USA, California st., Los Santos, Groove Street",
+        "created_at": "2024-05-19T16:22:22.999Z",
+        "product": [
+            7,
+            12
         ]
     }
 }
