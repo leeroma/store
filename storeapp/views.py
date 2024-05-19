@@ -1,11 +1,11 @@
 from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
 from storeapp.forms import ProductForm, CategoryForm
-from storeapp.models import Product, Category
+from storeapp.models import Product, Category, ProductInCart
 
 
 class ProductListView(ListView):
@@ -124,3 +124,46 @@ class ProductDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('products')
+
+
+class ProductInCartView(TemplateView):
+    model = ProductInCart
+    template_name = 'cart.html'
+    context_object_name = 'cart'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cart'] = self.model.objects.all()
+        return context
+
+
+class AddToCartView(TemplateView):
+    model = ProductInCart
+
+    product = None
+    quantity = 0
+
+    def get(self, request, *args, **kwargs):
+        self.product = get_object_or_404(Product, pk=self.kwargs['pk'])
+
+        self.add_to_cart()
+
+        return HttpResponseRedirect(reverse('cart'))
+
+    def add_to_cart(self):
+        if ProductInCart.objects.filter(product_id=self.product.pk).exists():
+            cart_product = ProductInCart.objects.get(product_id=self.product.pk)
+            cart_product.quantity += 1
+            self.product.quantity -= 1
+            cart_product.save()
+            self.product.save()
+
+        elif self.product.quantity > 0:
+            self.quantity = 1
+            self.product.quantity -= 1
+            self.product.save()
+            cart_product = ProductInCart.objects.create(product=self.product, quantity=self.quantity)
+            cart_product.save()
+
+        else:
+            return HttpResponseRedirect(reverse('products'))
